@@ -61,12 +61,13 @@ img {
 	margin-top: 10%;
 	margin-left: 6%;
 	list-style: none;
-  height: 200px;
+  width: 250px;
+	height: auto;
 	border: 1px solid black;
 }
 
 #image_two {
-	margin: 10% 4% 0px 4%;
+	margin: 10% 4% 0px 7%;
 }
 
 #image_tre {

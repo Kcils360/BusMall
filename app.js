@@ -51,14 +51,7 @@ function generateRandomImages (e){
     alert('Please click an image');
     return;
   }
-
-  // if(Image.imgEl1.src || Image.imgEl2.src || Image.imgEl3.src == e.target.alt){
-  //   Image.all[this].timesClicked += 1;
-    // console.log(this.timesClicked);
-  // }
   randomImage1();
 };
-
-
 
 document.getElementById('image_section').addEventListener('click', generateRandomImages);
