@@ -1,4 +1,6 @@
 'use strict';
+var clickedImages  = [];
+var numberOfClicks = 0;
 
 function Image(name) {
   this.name = name;
@@ -35,23 +37,32 @@ var randomImage1 = function(){
   // console.log(Image.all[randomIndex1].name + ' has been shown ' + Image.all[randomIndex1].timesShown + ' times');
   // console.log(Image.all[randomIndex2].name + ' has been shown ' + Image.all[randomIndex2].timesShown + ' times');
   // console.log(Image.all[randomIndex3].name + ' has been shown ' + Image.all[randomIndex3].timesShown + ' times');
-  console.table(Image.all[Image].timesShown);
+  // console.table(Image.all[Image].timesShown);
 };
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
+
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 function dedpulicate(){
   if(Image.imgEl1.src === Image.imgEl2.src || Image.imgEl1.src === Image.imgEl3.src || Image.imgEl2.src === Image.imgEl3.src) {
     randomImage1();
     console.log('Rerun 1');
   }
 };
-
 function generateRandomImages (e){
+  numberOfClicks += 1;
   console.log(e.target.alt + ' name clicked');
   if(e.target.alt == undefined){
     alert('Please click an image');
     return;
   }
   randomImage1();
+  console.log(numberOfClicks);
 };
-
+if(numberOfClicks === 25){
+  document.getElementById('image_section').removeEventlistener();
+}
 document.getElementById('image_section').addEventListener('click', generateRandomImages);
