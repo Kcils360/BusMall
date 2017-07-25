@@ -24,46 +24,51 @@ var randomImage1 = function(){
   var randomIndex = Math.floor(Math.random() * Image.all.length);
   Image.imgEl1.src = Image.all[randomIndex].source;
   Image.imgEl1.alt = Image.all[randomIndex].name;
+  dedpulicate();
   Image.all[randomIndex].timesShown += 1;
   console.log(Image.all[randomIndex].name + ' has been shown ' + Image.all[randomIndex].timesShown + ' times');
-  console.log(Image.all[randomIndex].name + ' is clicked ' + Image.all[randomIndex].timesClicked);
-  console.log(Image.imgEl1.src);
-  dedpulicate();
+  // console.log(Image.all[randomIndex].name + ' is clicked ' + Image.all[randomIndex].timesClicked);
+  // console.log(Image.imgEl1.src);
 };
 var randomImage2 = function(){
   var randomIndex = Math.floor(Math.random() * Image.all.length);
   Image.imgEl2.src = Image.all[randomIndex].source;
   Image.imgEl2.alt = Image.all[randomIndex].name;
+  dedpulicate();
   Image.all[randomIndex].timesShown += 1;
   console.log(Image.all[randomIndex].name + ' has been shown ' + Image.all[randomIndex].timesShown + ' times');
-  console.log(Image.all[randomIndex].name + ' is clicked ' + Image.all[randomIndex].timesClicked);
-  console.log(Image.imgEl2.src);
-  dedpulicate();
+  // console.log(Image.all[randomIndex].name + ' is clicked ' + Image.all[randomIndex].timesClicked);
+  // console.log(Image.imgEl2.src);
 
 };
 var randomImage3 = function(){
   var randomIndex = Math.floor(Math.random() * Image.all.length);
   Image.imgEl3.src = Image.all[randomIndex].source;
   Image.imgEl3.alt = Image.all[randomIndex].name;
+  dedpulicate();
   Image.all[randomIndex].timesShown += 1;
   console.log(Image.all[randomIndex].name + ' has been shown ' + Image.all[randomIndex].timesShown + ' times');
-  console.log(Image.all[randomIndex].name + ' is clicked ' + Image.all[randomIndex].timesClicked);
-  console.log(Image.imgEl3.src);
-  dedpulicate();
+  // console.log(Image.all[randomIndex].name + ' is clicked ' + Image.all[randomIndex].timesClicked);
+  // console.log(Image.imgEl3.src);
 
 };
 function dedpulicate(){
   if(Image.imgEl1.src === Image.imgEl2.src || Image.imgEl1.src === Image.imgEl3.src) {
     randomImage1();
+    console.log('Rerun 1');
   } else if (Image.imgEl2.src === Image.imgEl3.src) {
     randomImage2();
+    console.log('Rerun 2');
   }
+};
+function generateRandomImages (){
+  randomImage1();
+  randomImage2();
+  randomImage3();
 };
 
 
-document.getElementById('image_section').addEventListener('click', randomImage1);
-document.getElementById('image_section').addEventListener('click', randomImage2);
-document.getElementById('image_section').addEventListener('click', randomImage3);
+document.getElementById('image_section').addEventListener('click', generateRandomImages);
 // document.getElementById('image_one').addEventListener('click', addClicks);
 // document.getElementById('image_two').addEventListener('click', addClicks);
 // document.getElementById('image_tre').addEventListener('click', addClicks);
