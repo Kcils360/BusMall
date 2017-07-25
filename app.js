@@ -61,11 +61,20 @@ function dedpulicate(){
     console.log('Rerun 2');
   }
 };
-function generateRandomImages (){
+
+if(Image.imgEl1.src || Image.imgEl2.src || Image.imgEl2.src == e.target){
+  
+}
+
+
+function generateRandomImages (e){
+  console.log(e.target.alt + ' name clicked');
+
   randomImage1();
   randomImage2();
   randomImage3();
 };
+
 
 
 document.getElementById('image_section').addEventListener('click', generateRandomImages);
