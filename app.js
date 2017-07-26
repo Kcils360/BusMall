@@ -4,6 +4,7 @@ var showed = [];
 var names = [];
 var surveyChart;
 var chartDrawn = false;
+var lastShown = [];
 
 
 
@@ -49,21 +50,34 @@ function randomImages(){//display images
   Image.all[randomIndex[0]].timesShown++;
   Image.all[randomIndex[1]].timesShown++;
   Image.all[randomIndex[2]].timesShown++;
+  lastShown = randomIndex;
 };
 function handleClick(e){
   Image.totalClicks += 1;
   for(var i = 0; i < Image.all.length; i++){
     if(e.target.alt === Image.all[i].name){
       Image.all[i].timesClicked++;
+      console.log(e.target);
     }
   }
+  // if(e.target === )
   if(Image.totalClicks === 5){
     document.getElementById('image_section').removeEventListener('click', handleClick);
     // showList();
     updateChartArrays();
+    removeSurvey();
     return drawChart();
   }
   randomImages();
+}
+function removeSurvey(){
+  Image.imgEl1.src = '';
+  Image.imgEl2.src = '';
+  Image.imgEl3.src = '';
+  Image.imgEl1.alt = '';
+  Image.imgEl2.alt = '';
+  Image.imgEl3.alt = '';
+  document.getElementById('image_section').style.height = '100px';
 }
 // function showList(){
 //   var ulEl = document.getElementById('the_list');
@@ -91,49 +105,50 @@ var data = {
   datasets: [
     {
       data: clicks,
+      label: 'Survey Analasys',
       backgroundColor: [
-        'bisque',
-        'darkgray',
-        'burlywood',
-        'lightblue',
-        'navy',
-        'bisque',
-        'darkgray',
-        'burlywood',
-        'lightblue',
-        'navy',
-        'bisque',
-        'darkgray',
-        'burlywood',
-        'lightblue',
-        'navy',
-        'bisque',
-        'darkgray',
-        'burlywood',
-        'lightblue',
-        'navy',
+        '#3C15CD',
+        '#785ED8',
+        '#5939D0',
+        '#2C0CA2',
+        '#22097E',
+        '#88F100',
+        '#B0F457',
+        '#9BF22A',
+        '#79D600',
+        '#5EA700',
+        '#FFD100',
+        '#FFE15B',
+        '#FFD92D',
+        '#EBC000',
+        '#B79500',
+        '#E70061',
+        '#EC5595',
+        '#E9297A',
+        '#C80054',
+        '#9C0042',
       ],
       hoverBackgroundColor: [
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
-        'skyblue',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
+        '#FF0700',
       ]
     }]
 };
