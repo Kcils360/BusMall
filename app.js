@@ -31,18 +31,20 @@ function makeRandomNumber(){
 
 function randomImages(){//display images
   var randomIndex = [];
-  randomIndex[0] = makeRandomNumber();
-  randomIndex[1] = makeRandomNumber();
-  while(randomIndex[0] === randomIndex[1]){
+  // function deduplicate(){
+    randomIndex[0] = makeRandomNumber();
     randomIndex[1] = makeRandomNumber();
-  }
-  randomIndex[2] = makeRandomNumber();
-  while(randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0]){
+    while(randomIndex[0] === randomIndex[1]){
+      randomIndex[1] = makeRandomNumber();
+    }
     randomIndex[2] = makeRandomNumber();
-  }
+    while(randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0]){
+      randomIndex[2] = makeRandomNumber();
+    }
+  // }
   for(var i = 0; i < randomIndex.length; i++){
     if(randomIndex[i] === lastShown[0] || randomIndex[i] === lastShown[1] || randomIndex[i] === lastShown[2])
-      randomIndex[i] = makeRandomNumber();
+      randomIndex[i] = makeRandomNumber();//deduplicate();
   }
   Image.imgEl1.src = Image.all[randomIndex[0]].source;
   Image.imgEl2.src = Image.all[randomIndex[1]].source;
