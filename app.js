@@ -6,6 +6,7 @@ var names = [];
 var surveyChart;
 var chartDrawn = false;
 var lastShown = [];
+var jsonImageClicks = [];
 
 function Image(name) {
   this.name = name;
@@ -66,11 +67,12 @@ function handleClick(e){
   for(var i = 0; i < Image.all.length; i++){
     if(e.target.alt === Image.all[i].name){
       Image.all[i].timesClicked++;
+      jsonImageClicks.push(Image.all[i]);
     }
   }
   if(Image.totalClicks === 10){
     document.getElementById('image_section').removeEventListener('click', handleClick);
-    // showList();
+    localStorage.userClickInfo = JSON.stringify(jsonImageClicks);
     updateChartArrays();
     removeSurvey();
     return drawChart();
@@ -96,6 +98,13 @@ function removeSurvey(){
 //     ulEl.appendChild(liEl);
 //   }
 // }
+if(localStorage.length < 1){
+  jsonImageClicks = JSON.parse(localStorage.userClickInfo);
+  console.log('nothing in storage bruh');
+} else {
+  randomImages();
+  console.log('adding clicks brah');
+}
 randomImages();
 document.getElementById('image_section').addEventListener('click', handleClick);
 
