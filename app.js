@@ -98,12 +98,12 @@ function removeSurvey(){
 //     ulEl.appendChild(liEl);
 //   }
 // }
-if(localStorage.length < 1){
+if(localStorage.length > 0){
   jsonImageClicks = JSON.parse(localStorage.userClickInfo);
-  console.log('nothing in storage bruh');
+  console.log('adding clicks brah');
 } else {
   randomImages();
-  console.log('adding clicks brah');
+  console.log('nothing in storage bruh');
 }
 randomImages();
 document.getElementById('image_section').addEventListener('click', handleClick);
@@ -112,11 +112,13 @@ document.getElementById('image_section').addEventListener('click', handleClick);
 
 function updateChartArrays() {
   for (var i = 0; i < Image.all.length; i++) {
-    clicks[i] = Image.all[i].timesClicked;
     showed[i] = Image.all[i].timesShown;
     names[i] = Image.all[i].name;
   }
-}
+  for (var j = 0; j < jsonImageClicks.length; j++){
+    clicks[j] = jsonImageClicks[j].timesClicked;
+  }
+};
 
 var data = {
   labels: names,
