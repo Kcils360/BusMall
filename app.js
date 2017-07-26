@@ -1,12 +1,11 @@
 'use strict';
+
 var clicks = [];
 var showed = [];
 var names = [];
 var surveyChart;
 var chartDrawn = false;
 var lastShown = [];
-
-
 
 function Image(name) {
   this.name = name;
@@ -29,7 +28,7 @@ Image.imgEl3 = document.getElementById('image_tre');
 function makeRandomNumber(){
   return Math.floor(Math.random() * Image.all.length);
 };
-// +++++++++++++++++++++++++MY CODE+++++++++++++++++++++++++++++++++++++++++++++++++
+
 function randomImages(){//display images
   var randomIndex = [];
   randomIndex[0] = makeRandomNumber();
@@ -40,6 +39,10 @@ function randomImages(){//display images
   randomIndex[2] = makeRandomNumber();
   while(randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0]){
     randomIndex[2] = makeRandomNumber();
+  }
+  for(var i = 0; i < randomIndex.length; i++){
+    if(randomIndex[i] === lastShown[0] || randomIndex[i] === lastShown[1] || randomIndex[i] === lastShown[2])
+      randomIndex[i] = makeRandomNumber();
   }
   Image.imgEl1.src = Image.all[randomIndex[0]].source;
   Image.imgEl2.src = Image.all[randomIndex[1]].source;
@@ -57,11 +60,9 @@ function handleClick(e){
   for(var i = 0; i < Image.all.length; i++){
     if(e.target.alt === Image.all[i].name){
       Image.all[i].timesClicked++;
-      console.log(e.target);
     }
   }
-  // if(e.target === )
-  if(Image.totalClicks === 5){
+  if(Image.totalClicks === 25){
     document.getElementById('image_section').removeEventListener('click', handleClick);
     // showList();
     updateChartArrays();
