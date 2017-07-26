@@ -68,7 +68,7 @@ function handleClick(e){
       Image.all[i].timesClicked++;
     }
   }
-  if(Image.totalClicks === 25){
+  if(Image.totalClicks === 10){
     document.getElementById('image_section').removeEventListener('click', handleClick);
     // showList();
     updateChartArrays();
@@ -84,7 +84,9 @@ function removeSurvey(){
   Image.imgEl1.alt = '';
   Image.imgEl2.alt = '';
   Image.imgEl3.alt = '';
+  document.getElementById('image_section').style.border = 'none';
   document.getElementById('image_section').style.height = '50px';
+  document.getElementById('survey_message').textContent = 'Thank you for your time';
 }
 // function showList(){
 //   var ulEl = document.getElementById('the_list');
