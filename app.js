@@ -1,7 +1,11 @@
 'use strict';
-var clickedImages  = 0;
-var previouslyShown = [];
-var numberOfClicks = 0;
+var clicks = [];
+var showed = [];
+var names = [];
+var surveyChart;
+var chartDrawn = false;
+
+
 
 function Image(name) {
   this.name = name;
@@ -20,9 +24,6 @@ for(var i = 0; i < Image.allNames.length; i++){
 Image.imgEl1 = document.getElementById('image_one');
 Image.imgEl2 = document.getElementById('image_two');
 Image.imgEl3 = document.getElementById('image_tre');
-
-
-
 
 function makeRandomNumber(){
   return Math.floor(Math.random() * Image.all.length);
@@ -49,79 +50,115 @@ function randomImages(){//display images
   Image.all[randomIndex[1]].timesShown++;
   Image.all[randomIndex[2]].timesShown++;
 };
-
-function showList(){
-  var ulEl = document.getElementById('the_list');
-  for(var i = 0; i < Image.all.length; i++){
-    var liEl = document.createElement('li');
-    liEl.textContent = Image.all[i].name + ' was shown ' + Image.all[i].timesShown + ' times, and was clicked ' + Image.all[i].timesClicked + 'times.';
-    ulEl.appendChild(liEl);
-  }
-}
-
 function handleClick(e){
   Image.totalClicks += 1;
-  if(Image.totalClicks === 5){
-    document.getElementById('image_section').removeEventListener('click', handleClick);
-    showList();
-  }
   for(var i = 0; i < Image.all.length; i++){
     if(e.target.alt === Image.all[i].name){
       Image.all[i].timesClicked++;
     }
-    randomImages();
+  }
+  if(Image.totalClicks === 5){
+    document.getElementById('image_section').removeEventListener('click', handleClick);
+    // showList();
+    updateChartArrays();
+    return drawChart();
+  }
+  randomImages();
+}
+// function showList(){
+//   var ulEl = document.getElementById('the_list');
+//   for(var i = 0; i < Image.all.length; i++){
+//     var liEl = document.createElement('li');
+//     liEl.textContent = Image.all[i].name + ' was shown ' + Image.all[i].timesShown + ' times, and was clicked ' + Image.all[i].timesClicked + 'times.';
+//     ulEl.appendChild(liEl);
+//   }
+// }
+randomImages();
+document.getElementById('image_section').addEventListener('click', handleClick);
+
+//++++++++++++++++++++++++++++++++CHART+++++++++++++++++++++++++++++++++++
+
+function updateChartArrays() {
+  for (var i = 0; i < Image.all.length; i++) {
+    clicks[i] = Image.all[i].timesClicked;
+    showed[i] = Image.all[i].timesShown;
+    names[i] = Image.all[i].name;
   }
 }
 
+var data = {
+  labels: names,
+  datasets: [
+    {
+      data: clicks,
+      backgroundColor: [
+        'bisque',
+        'darkgray',
+        'burlywood',
+        'lightblue',
+        'navy',
+        'bisque',
+        'darkgray',
+        'burlywood',
+        'lightblue',
+        'navy',
+        'bisque',
+        'darkgray',
+        'burlywood',
+        'lightblue',
+        'navy',
+        'bisque',
+        'darkgray',
+        'burlywood',
+        'lightblue',
+        'navy',
+      ],
+      hoverBackgroundColor: [
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+        'skyblue',
+      ]
+    }]
+};
 
-randomImages();
-
-document.getElementById('image_section').addEventListener('click', handleClick);
-
-//   alert('Please click an image');
-//   return;
-
-//   }
-// };
-//
-// }
-//
-// function displayImages(){
-//   var numbers = [];
-//   numbers[0] = makeRandomNumber;
-//   numbers[1] = makeRandomNumber;
-//   if(numbers[0] === numbers[1]){
-//     makeRandomNumber();
-//   }
-//   numbers[2] = makeRandomNumber;
-//   while (numbers[0] === numbers[2] || numbers[1] === numbers[2]){
-//     numbers[2] = makeRandomNumber;
-//   }
-//   Image.imgEl1.src = Image.all[numbers[0]].source;
-//   Image.imgEl2.src = Image.all[numbers[1]].source;
-//   Image.imgEl3.src = Image.all[number2[2]].source;
-//   Image.imgEl1.alt = Image.all[numbers[0]].name;
-//   Image.imgEl2.alt = Image.all[numbers[1]].name;
-//   Image.imgEl3.alt = Image.all[number2[2]].name;
-//   Image.all[numbers[0]].timesShown += 1;
-//   Image.all[numbers[1]].timesShown += 1;
-//   Image.all[number2[2]].timesShown += 1;
-//   previouslyShown = numbers;
-// }
-//
-//
-// function handleClick(e){
-//   console.log(e.target.alt);
-//   Image.numberOfClicks += 1;
-//   if(Image.numberOfClicks === 25){
-//     document.getElementById('image_section').removeEventListener('click', generateRandomImages);
-//   }
-//   for(var i = 0; i < Image.all.length; i++){
-//     if(e.target.alt === Image.all[i].name){
-//     }
-//     showList();
-//   }
-//   displayImages();
-// }
-// displayImages();
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function drawChart() {
+  var ctx = document.getElementById('BusMall_chart').getContext('2d');
+  surveyChart = new Chart(ctx,{
+    type: 'bar',
+    data: data,
+    options: {
+      responsive: false,
+      animation: {
+        duration: 1000,
+        easing: 'easeOutBounce'
+      }
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          max: 10,
+          min: 0,
+          stepSize: 1.0
+        }
+      }]
+    }
+  });
+  chartDrawn = true;
+}
