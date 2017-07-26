@@ -40,11 +40,12 @@ function randomImages(){//display images
     randomIndex[2] = makeRandomNumber();
     while(randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0]){
       randomIndex[2] = makeRandomNumber();
-    }
-  // }
+    // };
+  }
   for(var i = 0; i < randomIndex.length; i++){
-    if(randomIndex[i] === lastShown[0] || randomIndex[i] === lastShown[1] || randomIndex[i] === lastShown[2])
-      randomIndex[i] = makeRandomNumber();//deduplicate();
+    while(randomIndex[i] === lastShown[0] || randomIndex[i] === lastShown[1] || randomIndex[i] === lastShown[2] || (randomIndex[0] === randomIndex[1]) || (randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0])){
+      randomIndex[i] = makeRandomNumber();
+    }// deduplicate();
   }
   Image.imgEl1.src = Image.all[randomIndex[0]].source;
   Image.imgEl2.src = Image.all[randomIndex[1]].source;
@@ -58,6 +59,9 @@ function randomImages(){//display images
   lastShown = randomIndex;
 };
 function handleClick(e){
+  if(e.target.id === 'image_section'){
+    return alert('Please select an image');
+  }
   Image.totalClicks += 1;
   for(var i = 0; i < Image.all.length; i++){
     if(e.target.alt === Image.all[i].name){
@@ -80,7 +84,7 @@ function removeSurvey(){
   Image.imgEl1.alt = '';
   Image.imgEl2.alt = '';
   Image.imgEl3.alt = '';
-  document.getElementById('image_section').style.height = '100px';
+  document.getElementById('image_section').style.height = '50px';
 }
 // function showList(){
 //   var ulEl = document.getElementById('the_list');
@@ -180,3 +184,8 @@ function drawChart() {
   });
   chartDrawn = true;
 }
+
+
+
+
+// while(lastshown.includes(randomIndex[i])
