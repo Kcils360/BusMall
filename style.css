@@ -36,12 +36,12 @@ section {
 
 img {
 	display: inline-block;
-	margin-top: 10%;
 	margin-left: 6%;
 	list-style: none;
-  width: 250px;
-	height: auto;
+	max-height: 250px;
+  max-width: 25%;
 	border: 1px solid black;
+	vertical-align: middle;
 }
 
 #image_two {

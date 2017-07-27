@@ -6,6 +6,7 @@ var names = [];
 var surveyChart;
 var chartDrawn = false;
 var lastShown = [];
+var jsonImageClicks = [];
 
 function Image(name) {
   this.name = name;
@@ -31,18 +32,21 @@ function makeRandomNumber(){
 
 function randomImages(){//display images
   var randomIndex = [];
-  randomIndex[0] = makeRandomNumber();
-  randomIndex[1] = makeRandomNumber();
-  while(randomIndex[0] === randomIndex[1]){
+  // function deduplicate(){
+    randomIndex[0] = makeRandomNumber();
     randomIndex[1] = makeRandomNumber();
-  }
-  randomIndex[2] = makeRandomNumber();
-  while(randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0]){
+    while(randomIndex[0] === randomIndex[1]){
+      randomIndex[1] = makeRandomNumber();
+    }
     randomIndex[2] = makeRandomNumber();
+    while(randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0]){
+      randomIndex[2] = makeRandomNumber();
+    // };
   }
   for(var i = 0; i < randomIndex.length; i++){
-    if(randomIndex[i] === lastShown[0] || randomIndex[i] === lastShown[1] || randomIndex[i] === lastShown[2])
+    while(randomIndex[i] === lastShown[0] || randomIndex[i] === lastShown[1] || randomIndex[i] === lastShown[2] || (randomIndex[0] === randomIndex[1]) || (randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0])){
       randomIndex[i] = makeRandomNumber();
+    }// deduplicate();
   }
   Image.imgEl1.src = Image.all[randomIndex[0]].source;
   Image.imgEl2.src = Image.all[randomIndex[1]].source;
@@ -56,15 +60,20 @@ function randomImages(){//display images
   lastShown = randomIndex;
 };
 function handleClick(e){
+  localStorage.userClickInfo = JSON.stringify(Image.all);
+  if(e.target.id === 'image_section'){
+    return alert('Please select an image');
+  }
   Image.totalClicks += 1;
   for(var i = 0; i < Image.all.length; i++){
     if(e.target.alt === Image.all[i].name){
       Image.all[i].timesClicked++;
+      jsonImageClicks.push(Image.all[i]);
     }
   }
   if(Image.totalClicks === 25){
     document.getElementById('image_section').removeEventListener('click', handleClick);
-    // showList();
+    localStorage.userClickInfo = JSON.stringify(jsonImageClicks);
     updateChartArrays();
     removeSurvey();
     return drawChart();
@@ -78,7 +87,9 @@ function removeSurvey(){
   Image.imgEl1.alt = '';
   Image.imgEl2.alt = '';
   Image.imgEl3.alt = '';
-  document.getElementById('image_section').style.height = '100px';
+  document.getElementById('image_section').style.border = 'none';
+  document.getElementById('image_section').style.height = '50px';
+  document.getElementById('survey_message').textContent = 'Thank you for your time';
 }
 // function showList(){
 //   var ulEl = document.getElementById('the_list');
@@ -88,6 +99,12 @@ function removeSurvey(){
 //     ulEl.appendChild(liEl);
 //   }
 // }
+if(localStorage.length > 0){
+  Image.all = JSON.parse(localStorage.userClickInfo);
+} else {
+  randomImages();
+}
+
 randomImages();
 document.getElementById('image_section').addEventListener('click', handleClick);
 
@@ -95,11 +112,13 @@ document.getElementById('image_section').addEventListener('click', handleClick);
 
 function updateChartArrays() {
   for (var i = 0; i < Image.all.length; i++) {
-    clicks[i] = Image.all[i].timesClicked;
     showed[i] = Image.all[i].timesShown;
     names[i] = Image.all[i].name;
   }
-}
+  for (var j = 0; j < jsonImageClicks.length; j++){
+    clicks[j] = jsonImageClicks[j].timesClicked;
+  }
+};
 
 var data = {
   labels: names,
