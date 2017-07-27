@@ -94,7 +94,11 @@ if(localStorage.length > 0){
   Image.all = JSON.parse(localStorage.userClickInfo);
 } else {
   randomImages();
-}
+};
+// function clear_lists(){
+//   Image.all = [];
+//   localStorage.clear();
+// };
 
 randomImages();
 document.getElementById('image_section').addEventListener('click', handleClick);

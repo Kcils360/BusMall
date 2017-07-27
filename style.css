@@ -25,14 +25,10 @@ section {
   height: 500px;
 	width: 1020px;
   border: 4px double #222;
+	border-radius: 10px;
 	margin: 0px auto;
+	padding-top: 80px;
 }
-
-/*ul {
-	margin: 10% auto;
-	border: 2px dotted red;
-	position: relative;
-}*/
 
 img {
 	display: inline-block;
@@ -41,16 +37,6 @@ img {
 	max-height: 250px;
   max-width: 25%;
 	border: 1px solid black;
-	vertical-align: middle;
-}
-
-#image_two {
-	margin: 10% 4% 0px 7%;
-}
-
-#image_tre {
-	float: right;
-	position: relative;
-	margin-left: 0px;
-	margin-right: 6%;
+	border-radius: 10px;
+	vertical-align: top;
 }
