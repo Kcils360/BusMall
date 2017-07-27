@@ -59,6 +59,7 @@ function randomImages(){//display images
   lastShown = randomIndex;
 };
 function handleClick(e){
+  localStorage.userClickInfo = JSON.stringify(Image.all);
   if(e.target.id === 'image_section'){
     return alert('Please select an image');
   }
@@ -68,7 +69,7 @@ function handleClick(e){
       Image.all[i].timesClicked++;
     }
   }
-  if(Image.totalClicks === 10){
+  if(Image.totalClicks === 25){
     document.getElementById('image_section').removeEventListener('click', handleClick);
     // showList();
     updateChartArrays();
@@ -96,6 +97,12 @@ function removeSurvey(){
 //     ulEl.appendChild(liEl);
 //   }
 // }
+if(localStorage.length > 0){
+  Image.all = JSON.parse(localStorage.userClickInfo);
+} else {
+  randomImages();
+}
+
 randomImages();
 document.getElementById('image_section').addEventListener('click', handleClick);
 
@@ -186,8 +193,3 @@ function drawChart() {
   });
   chartDrawn = true;
 }
-
-
-
-
-// while(lastshown.includes(randomIndex[i])
