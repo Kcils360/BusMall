@@ -32,7 +32,6 @@ function makeRandomNumber(){
 
 function randomImages(){//display images
   var randomIndex = [];
-  // function deduplicate(){
   randomIndex[0] = makeRandomNumber();
   randomIndex[1] = makeRandomNumber();
   while(randomIndex[0] === randomIndex[1]){
@@ -41,12 +40,11 @@ function randomImages(){//display images
   randomIndex[2] = makeRandomNumber();
   while(randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0]){
     randomIndex[2] = makeRandomNumber();
-  // };
   }
   for(var i = 0; i < randomIndex.length; i++){
     while(randomIndex[i] === lastShown[0] || randomIndex[i] === lastShown[1] || randomIndex[i] === lastShown[2] || (randomIndex[0] === randomIndex[1]) || (randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0])){
       randomIndex[i] = makeRandomNumber();
-    }// deduplicate();
+    }
   }
   Image.imgEl1.src = Image.all[randomIndex[0]].source;
   Image.imgEl2.src = Image.all[randomIndex[1]].source;
@@ -91,14 +89,7 @@ function removeSurvey(){
   document.getElementById('image_section').style.height = '50px';
   document.getElementById('survey_message').textContent = 'Thank you for your time';
 }
-// function showList(){
-//   var ulEl = document.getElementById('the_list');
-//   for(var i = 0; i < Image.all.length; i++){
-//     var liEl = document.createElement('li');
-//     liEl.textContent = Image.all[i].name + ' was shown ' + Image.all[i].timesShown + ' times, and was clicked ' + Image.all[i].timesClicked + 'times.';
-//     ulEl.appendChild(liEl);
-//   }
-// }
+
 if(localStorage.length > 0){
   Image.all = JSON.parse(localStorage.userClickInfo);
 } else {
