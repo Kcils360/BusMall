@@ -6,6 +6,7 @@ var names = [];
 var surveyChart;
 var chartDrawn = false;
 var lastShown = [];
+var jsonImageClicks = [];
 
 function Image(name) {
   this.name = name;
@@ -67,11 +68,12 @@ function handleClick(e){
   for(var i = 0; i < Image.all.length; i++){
     if(e.target.alt === Image.all[i].name){
       Image.all[i].timesClicked++;
+      jsonImageClicks.push(Image.all[i]);
     }
   }
   if(Image.totalClicks === 25){
     document.getElementById('image_section').removeEventListener('click', handleClick);
-    // showList();
+    localStorage.userClickInfo = JSON.stringify(jsonImageClicks);
     updateChartArrays();
     removeSurvey();
     return drawChart();
@@ -110,11 +112,13 @@ document.getElementById('image_section').addEventListener('click', handleClick);
 
 function updateChartArrays() {
   for (var i = 0; i < Image.all.length; i++) {
-    clicks[i] = Image.all[i].timesClicked;
     showed[i] = Image.all[i].timesShown;
     names[i] = Image.all[i].name;
   }
-}
+  for (var j = 0; j < jsonImageClicks.length; j++){
+    clicks[j] = jsonImageClicks[j].timesClicked;
+  }
+};
 
 var data = {
   labels: names,
