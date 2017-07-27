@@ -33,15 +33,15 @@ function makeRandomNumber(){
 function randomImages(){//display images
   var randomIndex = [];
   // function deduplicate(){
-    randomIndex[0] = makeRandomNumber();
+  randomIndex[0] = makeRandomNumber();
+  randomIndex[1] = makeRandomNumber();
+  while(randomIndex[0] === randomIndex[1]){
     randomIndex[1] = makeRandomNumber();
-    while(randomIndex[0] === randomIndex[1]){
-      randomIndex[1] = makeRandomNumber();
-    }
+  }
+  randomIndex[2] = makeRandomNumber();
+  while(randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0]){
     randomIndex[2] = makeRandomNumber();
-    while(randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0]){
-      randomIndex[2] = makeRandomNumber();
-    // };
+  // };
   }
   for(var i = 0; i < randomIndex.length; i++){
     while(randomIndex[i] === lastShown[0] || randomIndex[i] === lastShown[1] || randomIndex[i] === lastShown[2] || (randomIndex[0] === randomIndex[1]) || (randomIndex[2] === randomIndex[1] || randomIndex[2] === randomIndex[0])){
